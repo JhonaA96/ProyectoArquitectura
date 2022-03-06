@@ -13,88 +13,86 @@ public class User {
 	private Long id;
 	
 	@Column
-	private String nombre;
+	private String nombres;
+
+	@Column
+	private String usuario;
 	
 	@Column
-	private String apellido;
+	private String correo_electronico;
 	
-    @Column
-    private String usuario;
-    
     @Column
     private String password;
     
-    public User() {
-    	
-    }
+    @Column
+    private String numero_telefono;
 
-	public User(String nombre, String apellido, String usuario, String password) {
-		super();
-		this.nombre = nombre;
-		this.apellido = apellido;
+	public User(String nombres, String usuario, String correo_electronico, String password, String numero_telefono) {
+		this.nombres = nombres;
 		this.usuario = usuario;
+		this.correo_electronico = correo_electronico;
 		this.password = password;
+		this.numero_telefono = numero_telefono;
 	}
 
-	/**
-	 * @return the nombre
-	 */
-	public String getNombre() {
-		return nombre;
+	public User(){
+
 	}
 
-	/**
-	 * @param nombre the nombre to set
-	 */
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public Long getId() {
+		return id;
 	}
 
-	/**
-	 * @return the apellido
-	 */
-	public String getApellido() {
-		return apellido;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	/**
-	 * @param apellido the apellido to set
-	 */
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
+	public String getNombres() {
+		return nombres;
 	}
 
-	/**
-	 * @return the usuario
-	 */
+	public void setNombres(String nombres) {
+		this.nombres = nombres;
+	}
+
 	public String getUsuario() {
 		return usuario;
 	}
 
-	/**
-	 * @param usuario the usuario to set
-	 */
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
 	}
 
-	/**
-	 * @return the password
-	 */
+	public String getCorreo_electronico() {
+		return correo_electronico;
+	}
+
+	public void setCorreo_electronico(String correo_electronico) {
+		this.correo_electronico = correo_electronico;
+	}
+
 	public String getPassword() {
 		return password;
 	}
 
-	/**
-	 * @param password the password to set
-	 */
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
+	public String getNumero_telefono() {
+		return numero_telefono;
+	}
+
+	public void setNumero_telefono(String numero_telefono) {
+		this.numero_telefono = numero_telefono;
+	}
+
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", usuario=" + usuario
-				+ ", password=" + password + "]";
-	}    
+		return "User [correo_electronico=" + correo_electronico + ", id=" + id + ", nombres=" + nombres
+				+ ", numero_telefono=" + numero_telefono + ", password=" + password + ", usuario=" + usuario + "]";
+	}
+
+	
+	 
 }
