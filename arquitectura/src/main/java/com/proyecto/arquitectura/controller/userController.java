@@ -72,7 +72,6 @@ public class userController {
         userService.delete(userId);
         return ResponseEntity.ok().build();
     }
-
     @GetMapping("/listar")
     public List<User> readAll(){
         List<User> user = StreamSupport.stream(userService.findAll().spliterator(), false).collect(Collectors.toList());
