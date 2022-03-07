@@ -1,8 +1,15 @@
 package com.proyecto.arquitectura.model;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Table;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 
 @Entity
@@ -10,6 +17,7 @@ import javax.persistence.Column;
 public class User {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@Column
@@ -26,6 +34,9 @@ public class User {
     
     @Column
     private String numero_telefono;
+
+	@ManyToOne(optional = false, fetch = FetchType.EAGER ,cascade = CascadeType.ALL)
+	private TypeUser typeUser;
 
 	public User(String nombres, String usuario, String correo_electronico, String password, String numero_telefono) {
 		this.nombres = nombres;
