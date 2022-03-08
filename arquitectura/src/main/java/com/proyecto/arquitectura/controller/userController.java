@@ -57,6 +57,7 @@ public class userController {
         oUser.get().setCorreo_electronico(user.getCorreo_electronico());
         oUser.get().setPassword(user.getPassword());
         oUser.get().setNumero_telefono(user.getNumero_telefono());
+        oUser.get().setTypeUser(user.getTypeUser());
 
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(userService.save(oUser.get()));
     }

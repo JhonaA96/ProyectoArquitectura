@@ -8,7 +8,7 @@ import javax.persistence.Table;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 
@@ -35,15 +35,18 @@ public class User {
     @Column
     private String numero_telefono;
 
-	@ManyToOne(optional = false, fetch = FetchType.EAGER ,cascade = CascadeType.ALL)
+	@ManyToOne
+	@JoinColumn(name = "typeUser_id")
 	private TypeUser typeUser;
 
-	public User(String nombres, String usuario, String correo_electronico, String password, String numero_telefono) {
+	public User(String nombres, String usuario, String correo_electronico, String password, String numero_telefono,
+			TypeUser typeUser) {
 		this.nombres = nombres;
 		this.usuario = usuario;
 		this.correo_electronico = correo_electronico;
 		this.password = password;
 		this.numero_telefono = numero_telefono;
+		this.typeUser = typeUser;
 	}
 
 	public User(){
@@ -98,12 +101,19 @@ public class User {
 		this.numero_telefono = numero_telefono;
 	}
 
+	public TypeUser getTypeUser() {
+		return typeUser;
+	}
+
+	public void setTypeUser(TypeUser typeUser) {
+		this.typeUser = typeUser;
+	}
+
 	@Override
 	public String toString() {
 		return "User [correo_electronico=" + correo_electronico + ", id=" + id + ", nombres=" + nombres
-				+ ", numero_telefono=" + numero_telefono + ", password=" + password + ", usuario=" + usuario + "]";
+				+ ", numero_telefono=" + numero_telefono + ", password=" + password + ", typeUser=" + typeUser
+				+ ", usuario=" + usuario + "]";
 	}
 
-	
-	 
 }

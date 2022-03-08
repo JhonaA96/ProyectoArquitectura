@@ -1,10 +1,17 @@
 package com.proyecto.arquitectura.model;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Table;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 
 @Entity
@@ -17,6 +24,10 @@ public class TypeUser {
 
 	@Column
 	private String nombre;
+
+	@OneToMany(fetch = FetchType.EAGER ,cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "typeUser_id")
+	private List<User> users;
 
 	public TypeUser(String nombre) {
 		this.nombre = nombre;
