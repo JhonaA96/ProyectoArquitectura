@@ -4,13 +4,13 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
-
+import javax.transaction.Transactional;
 import com.proyecto.arquitectura.Service.UserService;
 import com.proyecto.arquitectura.model.User;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,19 +23,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/usuarios")
+@CrossOrigin("*")
 public class userController {
     
     @Autowired
     private UserService userService;
-    
-    @PostMapping("/guardar")
-    public ResponseEntity <?> create(@RequestBody User user){
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(user));
+    @GetMapping("/all")
+    public List<User> getAll(){
+        List<User> user = StreamSupport.stream(userService.findAll().spliterator(), false).collect(Collectors.toList());
+        return user;
     }
 
-    @GetMapping("/listar/{id}")
-    public ResponseEntity <?> read(@PathVariable(value = "id") Long userId){
+    @GetMapping("/usuario/{id}")
+    public ResponseEntity <?> find(@PathVariable(value = "id") Long userId){
         Optional<User> oUser = userService .findById(userId);
 
         if(!oUser.isPresent()){
@@ -43,6 +44,12 @@ public class userController {
         }else{
             return ResponseEntity.ok(oUser);
         }
+    }
+    
+    @PostMapping("/guardar")
+    public ResponseEntity <?> save(@RequestBody User user){
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(user));
     }
     
     @PutMapping("/actualizar/{id}")
@@ -62,6 +69,7 @@ public class userController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(userService.save(oUser.get()));
     }
 
+    @Transactional
     @DeleteMapping("eliminar/{id}")
     public ResponseEntity <?> delete(@PathVariable(value = "id") Long userId){
 
@@ -72,10 +80,5 @@ public class userController {
 
         userService.delete(userId);
         return ResponseEntity.ok().build();
-    }
-    @GetMapping("/listar")
-    public List<User> readAll(){
-        List<User> user = StreamSupport.stream(userService.findAll().spliterator(), false).collect(Collectors.toList());
-        return user;
     }
 }

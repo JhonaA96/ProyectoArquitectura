@@ -8,7 +8,6 @@ import javax.persistence.Table;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 
@@ -35,7 +34,7 @@ public class User {
     @Column
     private String numero_telefono;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
 	@JoinColumn(name = "typeUser_id")
 	private TypeUser typeUser;
 

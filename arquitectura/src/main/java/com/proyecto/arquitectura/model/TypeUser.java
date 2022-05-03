@@ -25,7 +25,7 @@ public class TypeUser {
 	@Column
 	private String nombre;
 
-	@OneToMany(fetch = FetchType.EAGER ,cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(fetch = FetchType.EAGER ,cascade = {CascadeType.MERGE}, orphanRemoval = true)
 	@JoinColumn(name = "typeUser_id")
 	private List<User> users;
 

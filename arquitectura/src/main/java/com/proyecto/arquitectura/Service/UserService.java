@@ -7,7 +7,7 @@ import com.proyecto.arquitectura.model.User;
 import org.springframework.stereotype.Service;
 
 @Service
-public interface UserService {
+public interface UserService{
 
     public Iterable<User> findAll();
     public Optional<User> findById(Long Id);
