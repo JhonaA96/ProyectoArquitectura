@@ -11,6 +11,7 @@ import com.proyecto.arquitectura.model.TypeUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,18 +24,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/tipoUsuario")
+@CrossOrigin("*")
 public class typeUserController {
     
     @Autowired
     private TypeUserService typeUserService;
     
-    @PostMapping("/guardar")
+    @PostMapping("/save")
     public ResponseEntity <?> create(@RequestBody TypeUser typeUser){
 
         return ResponseEntity.status(HttpStatus.CREATED).body(typeUserService.save(typeUser));
     }
 
-    @GetMapping("/listar/{id}")
+    @GetMapping("/getUserType/{id}")
     public ResponseEntity <?> read(@PathVariable(value = "id") Long typeUserId){
         Optional<TypeUser> oTypeUser = typeUserService .findById(typeUserId);
 
@@ -45,7 +47,7 @@ public class typeUserController {
         }
     }
     
-    @PutMapping("/actualizar/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity <?> update(@PathVariable(value = "id") Long typeUserId, @RequestBody TypeUser typeUser){
 
         Optional<TypeUser> oTypeUser = typeUserService.findById(typeUserId);
@@ -58,7 +60,7 @@ public class typeUserController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(typeUserService.save(oTypeUser.get()));
     }
 
-    @DeleteMapping("eliminar/{id}")
+    @DeleteMapping("delete/{id}")
     public ResponseEntity <?> delete(@PathVariable(value = "id") Long typeUserId){
 
         Optional<TypeUser> oUser = typeUserService.findById(typeUserId);
@@ -69,7 +71,7 @@ public class typeUserController {
         typeUserService.delete(typeUserId);
         return ResponseEntity.ok().build();
     }
-    @GetMapping("/listar")
+    @GetMapping("/getAll")
     public List<TypeUser> readAll(){
         List<TypeUser> typeUser = StreamSupport.stream(typeUserService.findAll().spliterator(), false).collect(Collectors.toList());
         return typeUser;

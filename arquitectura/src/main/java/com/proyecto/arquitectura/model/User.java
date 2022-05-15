@@ -32,13 +32,13 @@ public class User {
     private String password;
     
     @Column
-    private String numero_telefono;
+    private Long numero_telefono;
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
 	@JoinColumn(name = "typeUser_id")
 	private TypeUser typeUser;
 
-	public User(String nombres, String usuario, String correo_electronico, String password, String numero_telefono,
+	public User(String nombres, String usuario, String correo_electronico, String password, Long numero_telefono,
 			TypeUser typeUser) {
 		this.nombres = nombres;
 		this.usuario = usuario;
@@ -92,11 +92,11 @@ public class User {
 		this.password = password;
 	}
 
-	public String getNumero_telefono() {
+	public Long getNumero_telefono() {
 		return numero_telefono;
 	}
 
-	public void setNumero_telefono(String numero_telefono) {
+	public void setNumero_telefono(Long numero_telefono) {
 		this.numero_telefono = numero_telefono;
 	}
 
