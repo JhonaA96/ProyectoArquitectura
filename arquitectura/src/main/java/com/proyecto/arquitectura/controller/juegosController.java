@@ -33,7 +33,7 @@ public class juegosController {
         return juegos;
     }
 
-    @GetMapping("juegos/{id}")
+    @GetMapping("juego/{id}")
     public ResponseEntity <?> find(@PathVariable(value="id") Long juegoId){
         Optional<Juegos> oJuego = juegoService.findById(juegoId);
 
