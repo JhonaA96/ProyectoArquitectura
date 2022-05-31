@@ -5,38 +5,46 @@ import java.util.Optional;
 import com.proyecto.arquitectura.dao.UserDao;
 import com.proyecto.arquitectura.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService, UserDetailsService{
     
-    //Acá vamos a hacer uso de todo el JPA para acceder a la DB
     @Autowired
     private UserDao userDao;
 
-
-    //Select * from usuarios
     @Override
     public Iterable<User> findAll(){
         return userDao.findAll();
     }
 
-    //Select * from usuarios where id = ?
     @Override
     public Optional<User> findById(Long Id){
         return userDao.findById(Id);
     }
 
-    //insert into usuarios (?, ?, ?) values (?, ?, ?) 
     @Override
     public User save(User user){
         return userDao.save(user);
     }
 
-    //delete from usuarios where id = ?
     @Override
     public void delete(Long Id){
         userDao.deleteById(Id);
     }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userDao.findByUsuario(username);
+
+        if(null == user){
+            throw new UsernameNotFoundException("Usuario no encontrado" + username);
+        }
+        return user;
+    }
+
+    
 }

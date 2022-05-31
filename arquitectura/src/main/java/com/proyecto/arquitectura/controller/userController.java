@@ -10,6 +10,7 @@ import com.proyecto.arquitectura.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +29,9 @@ public class userController {
     
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private PasswordEncoder encoder;
 
     @GetMapping("/all")
     public List<User> getAll(){
@@ -48,7 +52,7 @@ public class userController {
     
     @PostMapping("/guardar")
     public ResponseEntity <?> save(@RequestBody User user){
-
+        user.setPassword(encoder.encode(user.getPassword()));
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(user));
     }
     
